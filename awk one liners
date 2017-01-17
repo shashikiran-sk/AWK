@@ -1,0 +1,43 @@
+##Double-space a file.
+awk '1; { print "" }'
+awk 'BEGIN { ORS="\n\n" }; 1'
+
+## Double-space a file so that no more than one blank line appears between lines of text.
+awk 'NF { print $0 "\n" }'
+
+##Number lines in each file separately.
+awk '{ print FNR "\t" $0 }'
+
+##Number lines for all files together.
+awk '{ print NR "\t" $0 }'
+
+## Number lines in a fancy manner.
+awk '{ printf("%5d : %s\n", NR, $0) }'
+
+##Number only non-blank lines in files.
+awk 'NF { $0=++a " :" $0 }; { print }'
+
+## Count lines in files (emulates wc -l).
+awk 'END{ print NR }'
+
+##Replace every field by its absolute value.
+awk '{ for (i = 1; i <= NF; i++) if ($i < 0) $i = -$i; print }'
+
+Count the total number of fields (words) in a file.
+awk '{ total = total + NF }; END { print total+0 }'
+
+Print the total number of lines containing word "Beth".
+awk '/Beth/ { n++ }; END { print n+0 }'
+
+ Find the line containing the largest (numeric) first field.
+ awk '$1 > max { max=$1; maxline=$0 }; END { print max, maxline }'
+ 
+ 
+ ## Print the number of fields in each line, followed by the line.
+ awk '{ print NF ":" $0 } '
+ 
+ ##Print the last field of each line.
+ awk '{ print $NF }'
+ 
+ ##Print the last field of the last line.
+awk '{ field = $NF }; END { print field }'
